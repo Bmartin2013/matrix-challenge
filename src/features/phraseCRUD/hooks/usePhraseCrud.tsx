@@ -18,14 +18,14 @@ export function usePhraseCrud() {
     deletingId
   } = usePhraseCrudStore();
 
-  useEffect(() => {
+ useEffect(() => {
     let called = false;
     // doing this to avoid double rendering in dev strict
     if (!called) fetchCards();
     return () => {
       called = true;
     };
-  }, []);
+  }, []); 
 
   const cards = useMemo(
     () => (searchString ? findQuotesByText(allCards, searchString) : allCards),

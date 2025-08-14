@@ -1,22 +1,21 @@
 import { memo } from "react";
 import { CardMatrixProps } from "../typings/card-matrix.component";
+import { CardItem } from "./CardItem";
 
-export const CardMatrix = memo(({ cards, onDelete, deletingId, errorDelete }: CardMatrixProps) => {
+export const CardMatrix = memo(
+  ({ cards, onDelete, deletingId, errorDelete }: CardMatrixProps) => {
     return (
       <ul>
-        {cards.map((card) => {
-          const deleting = deletingId === card.id;
-          return (
-            <li key={card.id}>
-              <span>{card.phrase}</span>
-              <button onClick={() => onDelete(card.id)} disabled={deleting}>
-                {deleting ? "Deleting…" : "Delete"}
-              </button>
-              {errorDelete && deleting && (
-                <small style={{ color: "crimson" }}>{errorDelete}</small>
-              )}
-            </li>
-          );
-        })}
-      </ul>)
-});
+        {cards.map((card) => (
+          <CardItem
+            key={card.id}
+            card={card}
+            deletingId={deletingId}
+            errorDelete={errorDelete}
+            onDelete={onDelete}
+          />
+        ))}
+      </ul>
+    );
+  }
+);

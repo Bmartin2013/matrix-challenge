@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NewCardFormProps } from "../typings/new-card-form.component";
 
-export const NewCardForm = ({ onAdd, loading }: NewCardFormProps) => {
+export const NewCardForm = ({ onAdd, buttonTitle, disabled }: NewCardFormProps) => {
   const [phrase, setPhrase] = useState("");
 
   const onHandleSubmit = (e: React.FormEvent) => {
@@ -26,8 +26,8 @@ export const NewCardForm = ({ onAdd, loading }: NewCardFormProps) => {
         placeholder="Add a new card…"
         autoComplete="off"
       />
-      <button aria-busy={loading} type="submit" disabled={!phrase.trim() || loading}>
-        {loading ? "loading..." : "Add"}
+      <button aria-busy={disabled} type="submit" disabled={!phrase.trim() || disabled}>
+        {buttonTitle}
       </button>
     </form>
   );

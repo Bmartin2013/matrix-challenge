@@ -1,0 +1,23 @@
+import { ReactNode } from "react";
+import { EmptyState, ErrorState, LoadingState } from "@/features/phraseCRUD/components/states";
+
+export type RenderConfig = {
+  loading?: boolean;
+  error?: string | null;
+  emptyState?: boolean;
+  emptyMessage?: string;
+  component: ReactNode;
+};
+
+export function renderWithStates({
+  loading,
+  error,
+  emptyState,
+  emptyMessage,
+  component,
+}: RenderConfig) {
+  if (loading) return <LoadingState message="Loading..." />;
+  if (error) return <ErrorState message={error} />;
+  if (emptyState) return <EmptyState message={emptyMessage ?? "No data"} />;
+  return component;
+}
