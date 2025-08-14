@@ -16,4 +16,19 @@ export class PhraseCrudClient {
     const response: Card[] = await this.service.getCards();
     return response.map(getCardWithDefaults);
   }
+
+  async addCard(phrase : string): Promise<Card[]> {
+    const newCard: Card = {
+      id: Date.now().toString(),
+      phrase: phrase.trim(),
+      createdAt: Date.now(),
+    };
+    const response = await this.service.addCard(newCard);
+    return response.map(getCardWithDefaults);
+  }
+
+  async deleteCard(id : string): Promise<Card[]> {
+    const res = await this.service.deleteCard(id);
+    return res.map(getCardWithDefaults);
+  }
 }

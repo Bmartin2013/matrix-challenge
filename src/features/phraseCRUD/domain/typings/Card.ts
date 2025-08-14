@@ -1,4 +1,5 @@
 export type Card = {
-  id: number;
+  id: string;
   phrase: string;
+  createdAt: number;
 };

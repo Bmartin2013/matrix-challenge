@@ -1,4 +1,5 @@
 export const CARD_DEFAULT = {
-  id: 0,
+  id: Date.now().toString(),
   phrase: "",
+  createdAt: Date.now()
 };
