@@ -7,6 +7,7 @@ export type RenderConfig = {
   emptyState?: boolean;
   emptyMessage?: string;
   component: ReactNode;
+  loadingClass?:string
 };
 
 export function renderWithStates({
@@ -15,8 +16,9 @@ export function renderWithStates({
   emptyState,
   emptyMessage,
   component,
+  loadingClass
 }: RenderConfig) {
-  if (loading) return <LoadingState message="Loading..." />;
+  if (loading) return <LoadingState spinnerClass={loadingClass ?? ""}/>;
   if (error) return <ErrorState message={error} />;
   if (emptyState) return <EmptyState message={emptyMessage ?? "No data"} />;
   return component;

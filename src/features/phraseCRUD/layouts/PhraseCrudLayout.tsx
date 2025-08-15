@@ -24,6 +24,7 @@ export const PhraseCrudLayout = () => {
     error: errorFetch,
     emptyState: cards.length === 0,
     emptyMessage: "No available cards",
+    loadingClass: "centerSpinnerBox",
     component: (
       <CardMatrix
         cards={cards}

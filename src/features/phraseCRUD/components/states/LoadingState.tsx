@@ -1,3 +1,7 @@
-import { CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 
-export const LoadingState = ({message}:{message : string}) => <CircularProgress size={30} />;
+export const LoadingState = ({spinnerClass}:{spinnerClass:string}) => (
+  <Box className={spinnerClass}>
+    <CircularProgress />
+  </Box>
+);

@@ -111,6 +111,12 @@ export const theme = createTheme({
           mb: 3,
           width: "100%",
         },
+        ".centerSpinnerBox": {
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "30vh",
+        },
       },
     },
   },
