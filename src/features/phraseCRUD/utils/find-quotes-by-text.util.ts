@@ -1,4 +1,4 @@
-import { Card } from "../domain/typings/Card";
+import { Card } from "@/domain/entities";
 
 export function findQuotesByText(cards: Card[], search: string): Card[] {
   const q = search.trim().toLowerCase();

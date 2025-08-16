@@ -1,22 +1,14 @@
-import { useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
-import { NewCardFormProps } from "../typings/new-card-form.component";
+import { NewCardFormProps } from "@/features/phraseCRUD/typings";
+import { usePhraseForm } from "@/domain/validators";
 
-export const NewCardForm = ({ onAdd, buttonTitle, disabled }: NewCardFormProps) => {
-  const [phrase, setPhrase] = useState("");
-
-  const onHandleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const clean = phrase.trim();
-    if (!clean) return;
-    onAdd(clean);
-    setPhrase("");
-  };
+export const NewCardForm = ({ onAdd, buttonTitle, disabled, errorAdd }: NewCardFormProps) => {
+  const { phrase, error, isDisabled, handleChange, handleSubmit } = usePhraseForm(onAdd, [disabled]);
 
   return (
     <Box
       component="form"
-      onSubmit={onHandleSubmit}
+      onSubmit={handleSubmit}
       className="inputBox"
     >
       <TextField
@@ -25,18 +17,20 @@ export const NewCardForm = ({ onAdd, buttonTitle, disabled }: NewCardFormProps) 
         label="New Card"
         variant="outlined"
         value={phrase}
-        onChange={(e) => setPhrase(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
         placeholder="Add a new card…"
         autoComplete="off"
         fullWidth
         size="small"
+        error={Boolean(error)}
+        helperText={error || ""}
       />
       <Button
-        aria-busy={disabled}
+        aria-busy={isDisabled}
         type="submit"
         variant="contained"
         color="primary"
-        disabled={!phrase.trim() || disabled}
+        disabled={isDisabled}
       >
         {buttonTitle}
       </Button>

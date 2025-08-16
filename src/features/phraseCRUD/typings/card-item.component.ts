@@ -1,4 +1,4 @@
-import { Card } from "../domain/typings/Card";
+import { Card } from "@/domain/entities";
 
 export type CardItemProps = {
   card: Card;

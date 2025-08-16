@@ -1,7 +1,7 @@
-import { STORAGE_KEY } from "../../constants/storage";
+import { PhraseCrudService } from "@/domain/interfaces";
+import { Card } from "@/domain/entities";
+import { STORAGE_KEY } from "@features/phraseCRUD/constants/storage";
 
-import { PhraseCrudService } from "../interfaces/PhraseCrudService";
-import { Card } from "../typings/Card";
 
 export class PhraseCrudServiceImpl implements PhraseCrudService {
   constructor() {}

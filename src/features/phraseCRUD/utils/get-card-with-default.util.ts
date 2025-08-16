@@ -1,6 +1,6 @@
-import { CARD_DEFAULT } from "../constants/defaults";
-import { Card } from "../domain/typings/Card";
-import { resolveOptions } from "./Resolver.util";
+import { Card } from "@/domain/entities";
+import { CARD_DEFAULT } from "@features/phraseCRUD/constants/defaults";
+import { resolveOptions } from "./resolve-options.util";
 
 export function getCardWithDefaults(card: Partial<Card>): Card {
   return resolveOptions(CARD_DEFAULT, card);

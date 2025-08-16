@@ -1,9 +1,6 @@
-import { NewCardForm } from "../components/NewCardForm";
-import { SearchBar } from "../components/SearchBar";
-import { usePhraseCrud } from "../hooks/usePhraseCrud";
-import { renderWithStates } from "../utils/render-with-states.utils";
-import { ControlsWrapper } from "../components/ControlsWrapper";
-import { CardMatrix } from "../components/CardMatrix";
+import { CardMatrix, ControlsWrapper, SearchBar, NewCardForm } from "@features/phraseCRUD/components";
+import { usePhraseCrud } from "@features/phraseCRUD/hooks/usePhraseCrud";
+import { renderWithStates } from "@features/phraseCRUD/utils";
 
 export const PhraseCrudLayout = () => {
   const {
@@ -35,23 +32,19 @@ export const PhraseCrudLayout = () => {
     ),
   });
 
-  const newCardContent = renderWithStates({
-    loading: loadingAdd,
-    error: errorAdd,
-    component: (
-      <NewCardForm
-        onAdd={addCard}
-        buttonTitle={loadingAdd ? "loading..." : "Add"}
-        disabled={loadingAdd}
-      />
-    ),
-  });
-
   return (
     <>
       <ControlsWrapper>
-        <SearchBar onHandleChange={setSearchString} />
-        {newCardContent}
+        <SearchBar
+          onHandleChange={setSearchString}
+          disabled={cards.length === 0}
+        />
+        <NewCardForm
+          onAdd={addCard}
+          buttonTitle={loadingAdd ? "Adding..." : "Add"}
+          disabled={loadingAdd}
+          errorAdd={errorAdd ?? ""}
+        />
       </ControlsWrapper>
 
       {cardMatrixContent}

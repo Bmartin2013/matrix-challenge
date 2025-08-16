@@ -1,9 +1,9 @@
-import { withLatency } from "../../hoc/with-latency.hoc";
-import { getCardWithDefaults } from "../../utils/get-card-with-default.util";
-import { PhraseCrudService } from "../interfaces/PhraseCrudService";
-import { Card } from "../typings/Card";
+import { Card } from "@/domain/entities/Card";
+import { PhraseCrudClient, PhraseCrudService } from "@/domain/interfaces";
+import { withLatency } from "@/hoc";
+import { getCardWithDefaults } from "@/features/phraseCRUD/utils";
 
-export class PhraseCrudClient {
+export class PhraseCrudClientImpl implements PhraseCrudClient {
   private service: PhraseCrudService;
 
   constructor(service: PhraseCrudService) {

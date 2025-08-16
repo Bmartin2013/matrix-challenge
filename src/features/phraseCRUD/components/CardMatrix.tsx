@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { CardMatrixProps } from "../typings/card-matrix.component";
+import { CardMatrixProps } from "@/features/phraseCRUD/typings";
 import { CardItem } from "./CardItem";
 import { Box } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";

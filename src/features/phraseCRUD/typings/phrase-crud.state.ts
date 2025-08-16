@@ -1,4 +1,4 @@
-import { Card } from "../domain/typings/Card";
+import { Card } from "@/domain/entities";
 
 export interface PhraseCrudState {
   searchString: string;

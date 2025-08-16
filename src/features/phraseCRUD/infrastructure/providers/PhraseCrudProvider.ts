@@ -1,9 +1,8 @@
-import { PhraseCrudClient } from "../clients/PhraseCrudClient";
-import { PhraseCrudServiceImpl } from "../services/PhraseCrudServiceImpl";
+import { PhraseCrudServiceImpl, PhraseCrudClientImpl } from "@features/phraseCRUD/infrastructure";
 
 const provideCrudPhraseClient = () => {
   const service = new PhraseCrudServiceImpl();
-  return new PhraseCrudClient(service);
+  return new PhraseCrudClientImpl(service);
 };
 
 export const provideCards = () => {

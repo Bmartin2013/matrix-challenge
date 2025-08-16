@@ -1,10 +1,7 @@
 import { create } from "zustand";
-import {
-  provideAddCard,
-  provideCards,
-  provideDeleteCard,
-} from "../domain/providers/PhraseCrudProvider";
-import { PhraseCrudState } from "../typings/phrase-crud.state";
+import { PhraseCrudState } from "@features/phraseCRUD/typings";
+import { validatePhrase } from "@/domain/validators";
+import { provideAddCard, provideCards, provideDeleteCard } from "../infrastructure/providers/PhraseCrudProvider";
 
 export const usePhraseCrudStore = create<PhraseCrudState>((set) => ({
   searchString: "",
@@ -33,6 +30,14 @@ export const usePhraseCrudStore = create<PhraseCrudState>((set) => ({
   addCard: async (phrase: string) => {
     try {
       set({ loadingAdd: true, errorAdd: null });
+
+      const submitError = validatePhrase(phrase);
+
+      if (submitError) {
+        set({ errorAdd: submitError });
+        return;
+      }
+
       const data = await provideAddCard(phrase);
       set({ allCards: data });
     } catch (err) {

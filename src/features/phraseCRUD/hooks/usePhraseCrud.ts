@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo } from "react";
-import { findQuotesByText } from "../utils/find-quotes-by-text.util";
-import { usePhraseCrudStore } from "../stores/phrase-crud.store";
+import { useEffect, useMemo } from "react";
+import { findQuotesByText } from "@/features/phraseCRUD/utils";
+import { usePhraseCrudStore } from "@/features/phraseCRUD/stores";
 
 export function usePhraseCrud() {
   const {
