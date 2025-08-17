@@ -9,6 +9,7 @@ import {
   provideCards,
   provideDeleteCard,
 } from "../infrastructure/providers/PhraseCrudProvider";
+import { ERRORS } from "@/constants";
 
 export const usePhraseCrudStore = create<PhraseCrudState>((set, get) => ({
   searchString: "",
@@ -60,7 +61,7 @@ export const usePhraseCrudStore = create<PhraseCrudState>((set, get) => ({
       const data = await provideDeleteCard(id);
       set({ allCards: data });
     } catch (e) {
-      set({ errorDelete: (e as Error).message ?? "Error deleting card" });
+      set({ errorDelete: (e as Error).message ?? ERRORS.delete.generic });
     } finally {
       set({ deletingId: null });
     }

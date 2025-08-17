@@ -3,10 +3,11 @@ import { SearchBarProps } from "@/features/phraseCRUD/typings";
 
 export const SearchBar = ({ onHandleChange, disabled }: SearchBarProps) => {
   return (
-    <Paper className="searchBar">
+    <Paper className="searchBar" data-testid="search-card-form">
       <InputBase
         id="search-bar"
         name="search"
+        inputProps={{ "aria-label": "Search" }}
         placeholder={
           disabled ? "Loading cards..." : "Search your card here..."
         }

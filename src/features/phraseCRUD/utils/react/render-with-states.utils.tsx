@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { EmptyState, ErrorState, LoadingState } from "@/features/phraseCRUD/components/states";
+import { JSX } from "@emotion/react/jsx-runtime";
 
 export type RenderConfig = {
   loading?: boolean;
@@ -17,9 +18,9 @@ export function renderWithStates({
   emptyMessage,
   component,
   loadingClass
-}: RenderConfig) {
+}: RenderConfig) : JSX.Element {
   if (loading) return <LoadingState spinnerClass={loadingClass ?? ""}/>;
   if (error) return <ErrorState message={error} />;
-  if (emptyState) return <EmptyState message={emptyMessage ?? "No data"} />;
-  return component;
+  if (emptyState) return <EmptyState message={emptyMessage ?? ""} />;
+  return <>{component}</>;
 }

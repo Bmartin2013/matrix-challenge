@@ -1,3 +1,4 @@
+import { ERRORS } from "@/constants";
 import { normalizeString } from "@/domain/utils/normalize-string.util";
 import { useDebouncedValue } from "@/hooks";
 import {
@@ -7,7 +8,7 @@ import {
   NewCardForm,
 } from "@features/phraseCRUD/components";
 import { usePhraseCrud } from "@features/phraseCRUD/hooks/usePhraseCrud";
-import { renderWithStates } from "@features/phraseCRUD/utils";
+import { renderWithStates } from "@features/phraseCRUD/utils/react";
 import { useEffect, useState } from "react";
 
 export const PhraseCrudLayout = () => {
@@ -28,7 +29,7 @@ export const PhraseCrudLayout = () => {
     loading: loadingFetch,
     error: errorFetch,
     emptyState: cards.length === 0,
-    emptyMessage: "No available cards",
+    emptyMessage: ERRORS.fetch.empty,
     loadingClass: "centerSpinnerBox",
     component: (
       <CardMatrix

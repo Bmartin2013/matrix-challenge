@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { CardMatrixProps } from "@/features/phraseCRUD/typings";
 import { CardItem } from "./CardItem";
-import { Box } from "@mui/material";
+import { Alert, Box } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 
 export const CardMatrix = memo(
@@ -12,7 +12,7 @@ export const CardMatrix = memo(
           <AnimatePresence mode="popLayout">
             {cards.map((card) => (
               <motion.div
-                id={card.id}
+                key={card.id}
                 layout
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -22,13 +22,17 @@ export const CardMatrix = memo(
                 <CardItem
                   card={card}
                   deletingId={deletingId}
-                  errorDelete={errorDelete}
                   onDelete={onDelete}
                 />
               </motion.div>
             ))}
           </AnimatePresence>
         </Box>
+        {errorDelete && (
+          <Alert className="errorAlert" severity="error">
+            {errorDelete}
+          </Alert>
+        )}
       </Box>
     );
   }

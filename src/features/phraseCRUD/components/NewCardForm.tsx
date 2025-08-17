@@ -12,7 +12,7 @@ export const NewCardForm = ({
     usePhraseForm(onAdd, disabled, errorAdd);
 
   return (
-    <Box component="form" onSubmit={handleSubmit} className="inputBox">
+    <Box component="form" onSubmit={handleSubmit} className="inputBox"  data-testid="new-card-form" >
       <TextField
         id="new-phrase"
         name="new-phrase"

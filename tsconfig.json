@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -11,16 +15,43 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
     "incremental": true,
+    "types": [
+      "jest",
+      "node",
+      "@testing-library/jest-dom"
+    ],
+    "jsx": "preserve",
     "paths": {
-      "@/*": ["./src/*"],
-      "@domain/*": ["./src/domain/*"],
-      "@features/*": ["./src/features/*"],
-      "@hooks/*": ["./src/hooks/*"],
-
+      "@/*": [
+        "./src/*"
+      ],
+      "@domain/*": [
+        "./src/domain/*"
+      ],
+      "@features/*": [
+        "./src/features/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@test-utils/*": [
+        "./src/test-utils/*"
+      ],
+      "@constants/*": [
+        "./src/constants/*"
+      ],
+      "@types/*": [
+        "./src/types/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

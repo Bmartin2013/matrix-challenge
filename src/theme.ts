@@ -98,6 +98,22 @@ export const theme = createTheme({
         },
       },
     },
+    MuiAlert:{
+      styleOverrides:{
+        root:{
+          "&.errorAlert":{
+            
+              position: "fixed",
+              bottom: 16,
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "80%",
+              zIndex: 1300,
+            
+          }
+        }
+      }
+    },
     MuiCssBaseline: {
       styleOverrides: {
         ".card-grid": {

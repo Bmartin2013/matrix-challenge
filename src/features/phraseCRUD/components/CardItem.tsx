@@ -6,14 +6,12 @@ import {
   Typography,
   Button,
   CircularProgress,
-  Alert,
 } from "@mui/material";
 import { CardItemProps } from "@/features/phraseCRUD/typings";
 
 export const CardItem = memo(
-  ({ card, deletingId, errorDelete, onDelete }: CardItemProps) => {
+  ({ card, deletingId, onDelete }: CardItemProps) => {
     const isDeleting = deletingId === card.id;
-    const hasError = isDeleting && errorDelete;
 
     return (
       <Card variant="outlined">
@@ -23,13 +21,8 @@ export const CardItem = memo(
           </Typography>
         </CardContent>
 
-        {hasError && (
-          <Alert severity="error" sx={{ mx: 2, mb: 1 }}>
-            {errorDelete}
-          </Alert>
-        )}
-
         <CardActions sx={{ justifyContent: "flex-end", p: 2 }}>
+      
           <Button
             variant="outlined"
             color="error"
