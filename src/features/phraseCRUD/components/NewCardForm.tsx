@@ -2,15 +2,17 @@ import { Box, TextField, Button } from "@mui/material";
 import { NewCardFormProps } from "@/features/phraseCRUD/typings";
 import { usePhraseForm } from "@/domain/validators";
 
-export const NewCardForm = ({ onAdd, buttonTitle, disabled, errorAdd }: NewCardFormProps) => {
-  const { phrase, error, isDisabled, handleChange, handleSubmit } = usePhraseForm(onAdd, [disabled]);
+export const NewCardForm = ({
+  onAdd,
+  buttonTitle,
+  disabled,
+  errorAdd,
+}: NewCardFormProps) => {
+  const { phrase, error, isDisabled, handleChange, handleSubmit } =
+    usePhraseForm(onAdd, disabled, errorAdd);
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      className="inputBox"
-    >
+    <Box component="form" onSubmit={handleSubmit} className="inputBox">
       <TextField
         id="new-phrase"
         name="new-phrase"

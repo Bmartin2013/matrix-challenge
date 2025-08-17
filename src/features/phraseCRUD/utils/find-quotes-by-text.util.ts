@@ -1,7 +1,8 @@
 import { Card } from "@/domain/entities";
+import { normalizeSearch, normalizeString } from "@/domain/utils/normalize-string.util";
 
-export function findQuotesByText(cards: Card[], search: string): Card[] {
-  const q = search.trim().toLowerCase();
-  if (!q) return cards;
-  return cards.filter((card) => card.phrase.toLowerCase().includes(q));
-}
+export const findQuotesByText = (cards: Card[], q: string) => {
+  const needle = normalizeSearch(q);     
+  if (!needle) return cards;
+  return cards.filter(c => normalizeSearch(c.phrase).includes(needle));
+};

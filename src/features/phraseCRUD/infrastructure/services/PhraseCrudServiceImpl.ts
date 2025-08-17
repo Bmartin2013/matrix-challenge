@@ -11,6 +11,8 @@ export class PhraseCrudServiceImpl implements PhraseCrudService {
     return raw ? JSON.parse(raw) : [];
   }
 
+  // so far we're returning all cards for add/delete because we're using local storage
+  // in a real API call we should refetch after these actions or re-render an updated version of the cards' array
   async addCard(card: Card): Promise<Card[]> {
     const current = await this.getCards();
     const updated = [...current, card];

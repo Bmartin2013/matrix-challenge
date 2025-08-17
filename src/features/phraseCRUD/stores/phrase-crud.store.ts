@@ -1,9 +1,16 @@
 import { create } from "zustand";
 import { PhraseCrudState } from "@features/phraseCRUD/typings";
-import { validatePhrase } from "@/domain/validators";
-import { provideAddCard, provideCards, provideDeleteCard } from "../infrastructure/providers/PhraseCrudProvider";
+import {
+  validateCard,
+  validatePhrase,
+} from "@/domain/validators";
+import {
+  provideAddCard,
+  provideCards,
+  provideDeleteCard,
+} from "../infrastructure/providers/PhraseCrudProvider";
 
-export const usePhraseCrudStore = create<PhraseCrudState>((set) => ({
+export const usePhraseCrudStore = create<PhraseCrudState>((set, get) => ({
   searchString: "",
   allCards: [],
   loadingFetch: true,
@@ -31,7 +38,8 @@ export const usePhraseCrudStore = create<PhraseCrudState>((set) => ({
     try {
       set({ loadingAdd: true, errorAdd: null });
 
-      const submitError = validatePhrase(phrase);
+      const submitError =
+        validatePhrase(phrase) || validateCard(get().allCards, phrase);
 
       if (submitError) {
         set({ errorAdd: submitError });

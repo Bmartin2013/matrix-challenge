@@ -8,7 +8,7 @@ export const SearchBar = ({ onHandleChange, disabled }: SearchBarProps) => {
         id="search-bar"
         name="search"
         placeholder={
-          disabled ? "No cards to search" : "Search your card here..."
+          disabled ? "Loading cards..." : "Search your card here..."
         }
         onChange={(e) => onHandleChange(e.target.value)}
         sx={{ ml: 1, flex: 1 }}

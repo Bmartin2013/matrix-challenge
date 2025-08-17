@@ -1,6 +1,14 @@
-import { CardMatrix, ControlsWrapper, SearchBar, NewCardForm } from "@features/phraseCRUD/components";
+import { normalizeString } from "@/domain/utils/normalize-string.util";
+import { useDebouncedValue } from "@/hooks";
+import {
+  CardMatrix,
+  ControlsWrapper,
+  SearchBar,
+  NewCardForm,
+} from "@features/phraseCRUD/components";
 import { usePhraseCrud } from "@features/phraseCRUD/hooks/usePhraseCrud";
 import { renderWithStates } from "@features/phraseCRUD/utils";
+import { useEffect, useState } from "react";
 
 export const PhraseCrudLayout = () => {
   const {
@@ -32,12 +40,26 @@ export const PhraseCrudLayout = () => {
     ),
   });
 
+  const [rawSearch, setRawSearch] = useState("");
+  const searchString = useDebouncedValue(rawSearch, 300);
+
+  useEffect(() => {
+    const normalized = normalizeString(searchString);
+    setSearchString(normalized);
+  }, [searchString, setSearchString]);
+
+  useEffect(() => {
+    const normalized = normalizeString(searchString);
+    setSearchString(normalized);
+  }, [searchString, setSearchString]);
+
+
   return (
     <>
       <ControlsWrapper>
         <SearchBar
-          onHandleChange={setSearchString}
-          disabled={cards.length === 0}
+          onHandleChange={setRawSearch}
+          disabled={loadingFetch}
         />
         <NewCardForm
           onAdd={addCard}
