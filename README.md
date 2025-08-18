@@ -9,7 +9,7 @@ React Matrix Challenge – CRD (there is no update) app for phrases with real-ti
 <img width="1912" height="980" alt="image" src="https://github.com/user-attachments/assets/0b8041c8-8d6a-4d65-97f9-9163ba0522aa" />
 
 
-Live demo [here](https://matrix-challenge-ten.vercel.app/)
+#### Live demo [here](https://matrix-challenge-ten.vercel.app/)
 
 ## Tech Stack & Features
 
