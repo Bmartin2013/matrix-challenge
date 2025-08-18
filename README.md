@@ -1,169 +1,163 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# React Matrix Challenge
+
+React Matrix Challenge – CRD (there is no update) app for phrases with real-time search, responsive grid, validations, and global state using Zustand. Built following the ClearFlow architecture: separation of domain logic (headless hooks), presentational UI, and orchestration (layout/controller).
+
+## Demo
+
+![alt text](image.png)
+
+## Tech Stack & Features
+
+Stack: React + TypeScript, NextJS, Zustand, MUI, Framer Motion, Jest + Testing Library.
+
+_Key Features:_
+
+- Add / list / delete phrases.
+
+- Search with debounce and normalization (case-insensitive, diacritics-insensitive … except “ñ”).
+
+- Validation rules (min/max length, empty, duplicates).
+
+- Responsive card grid with CSS Grid + auto-fit.
+
+- Loading, error, and empty states; error handling per action (add/delete).
 
 ## Getting Started
 
-First, run the development server:
+```
+# install
+npm i
 
-```bash
+# run in dev mode
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# run tests
+npm run test          # watch mode
+npm run test:ci       # no watch + coverage
+
+# lint / build
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Folder Structure
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```
+src/
+  domain/                 # pure contracts and validations (no UI deps)
+    entities/             # domain models
+    interfaces/           # ports
+    validators/           # rules + headless hooks (e.g., usePhraseForm)
+    utils/                # normalize-string, etc.
+  features/phraseCRUD/
+    components/           # presentational UI only
+    hooks/                # usePhraseCrud (interacts with store)
+    layouts/              # orchestration (acts as thin controller)
+    stores/               # Zustand store for this feature
+    utils/                # helpers (render-with-states, etc.)
+    infrastructure/       # client/provider implementations (if any)
+  shared/                 # cross-feature HOCs, hooks, helpers
+  test-utils/             # renderWithTheme, fixtures, setup
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Architecture: ClearFlow (designed by me)
 
-## Learn More
+- Layout/Controller: orchestrates hooks, passes props, defines flows (submit, delete, search).
 
-To learn more about Next.js, take a look at the following resources:
+- Headless hooks (domain): logic/state without UI (e.g., usePhraseForm → validation, trim, error handling).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+- Presentational components: pure UI, no business logic (MUI-driven).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Global state: Zustand per feature (phrase-crud.store.ts). Atomic actions; error state per operation (errorAdd, errorDelete).
 
-## Deploy on Vercel
+- Normalization: normalizeString (lowercase, trim, remove diacritics, preserve “ñ”).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Debounce: useDebouncedValue in search.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+- Optional HOCs: could wrap for latency or debounce, but hooks used for simplicity.
 
+- Benefits: high testability (unit + component tests), clear separation of concerns, scalable structure.
 
+## Design Decisions
 
-***
+- Zustand vs Context/Redux: chose Zustand for simplicity and ergonomics (direct actions, minimal boilerplate).
 
-## About ClearFlow
+- Two-layer validation:
 
-ClearFlow is a lightweight architectural pattern for React applications, designed to provide clarity, separation of concerns, and a predictable development flow.
+- UI-level (headless hook) → instant feedback.
 
-Its goal is to help you focus on the functionality of your app while keeping cross-app utilities, conventions, and scaffolding well-organized.
+- Store-level → “safety net” before persisting.
 
-Core Principles
-1. Three-layer separation
+- Persistence: LocalStorage for the challenge; can easily swap with a real API.
 
-ClearFlow splits responsibilities into three base layers:
+- Normalization: accents and casing ignored; ñ vs n preserved.
 
-Headless Hook
+- Framer Motion: subtle animations for mount/unmount.
 
-Pure logic and state management.
+## Error Handling
 
-No UI.
+- renderWithStates → handles loading, error, empty states at layout level.
 
-Encapsulates business logic, derivations, and local state.
+- Errors scoped to operations:
 
-Presentational UI
+    - Add → errorAdd → shown in NewCardForm helperText.
 
-Receives props clearly.
+    - Delete → errorDelete → shown inside CardItem + sticky bottom alert for visibility.
 
-No business logic.
+## Performance & UX
 
-Strong defaults.
+- useMemo for filtered list.
 
-Always a pure component.
+- React.memo for cards and items.
 
-Orchestration Layer
+- Debounced search input.
 
-Can be a Controller (thin wrapper) or a Layout/Wrapper.
+- CSS Grid auto-fit for responsive layout.
 
-Coordinates hooks + UI.
+- Accessibility: proper labels, roles, helperText, disabled/aria-busy attributes.
 
-Merges defaults.
+## Testing
 
-Defines data/interaction flows.
+*Unit tests:*
 
-Additionally:
+- normalizeString → trims, lowercases, removes accents (but keeps ñ).
 
-HOC (optional) → applies upgrades or transversal concerns (e.g. theming, logging, tracking).
+- validatePhrase → empty, min/max length, duplicates.
 
-2. Minimal and predictable API
+*Component tests:*
 
-Clear required props.
+- NewCardForm: disabled button, errors, submit behavior, store error propagation.
 
-Optional props with solid defaults.
+- CardMatrix: renders cards, shows empty state, triggers delete.
 
-Single escape hatch for flexibility (renderItem, sx, etc.).
+- SearchBar: onChange events, disabled behavior.
 
-3. Conscious scalability
+Run with:
 
-New behaviors → go to controller if specific to a view.
+```
+npm run test          # watch mode
+npm run test:ci       # no watch + coverage
+```
 
-HOC if transversal to multiple views.
+## Future Roadmap
 
-Local vs global state separated by naming/location.
+- Real API integration + complete infrastructure/ layer (clients, mappers).
 
-Performance optimizations (debounce, memo, virtualization) can be added without breaking the API.
+- Pagination or infinite scroll.
 
-4. Low cognitive load
+- Internationalization (i18n).
 
-No hidden “slots” or magic.
+- Dark mode theme.
 
-Defaults applied by layer (resolveOptions).
+- More robust optimistic updates with retries.
 
-Consistent naming patterns.
+- Accessibility improvements (keyboard shortcuts, focus management).
 
-File & Naming Conventions
+- Update card feature
 
-Kebab-case for filenames.
+## License / Author
 
-Use suffixes to clarify purpose:
-
-*.hook.ts → headless hooks
-
-*.ui.tsx → presentational components
-
-*.controller.tsx → controllers
-
-*.hoc.tsx → higher-order components
-
-*.util.ts → pure utilities
-
-Examples:
-
-use-phrase-crud.hook.ts
-
-phrase-card.ui.tsx
-
-phrase-list.controller.tsx
-
-with-logging.hoc.tsx
-
-resolve-options.util.ts
-
-Domain vs Cross-App Separation
-
-Domain/ → App-specific functionality (services, providers, domain logic, feature-related utils).
-
-Core/ (or equivalent) → Cross-app utilities (resolvers, normalizers, shared infra).
-
-This separation ensures you can focus only on what your app does, while keeping transversal scaffolding clean and isolated.
-
-Optional Conventions
-
-Barrel exports in index.ts for utils/.
-
-tsconfig.json paths for cleaner imports.
-
-Factory functions (e.g. make-phrase-crud-provider.ts) when injection or customization is required.
-
-Why ClearFlow?
-
-Clarity: Each layer has a single purpose.
-
-Scalability: Add complexity without collapsing structure.
-
-Simplicity: Easy onboarding, low cognitive load.
-
-Flexibility: Works for both small projects and growing apps.
-
-✨ ClearFlow is not a heavy framework. It’s a lightweight map — giving you just enough structure to start fast, scale cleanly, and keep your mind on the product itself.
+MIT — Barbara Carolina Martinez / [LinkedIn](https://www.linkedin.com/in/barbaracmartinez) / [Email](mailto:barcmartinez@gmail.com)

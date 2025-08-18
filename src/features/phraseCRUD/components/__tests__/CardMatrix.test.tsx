@@ -1,7 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { screen } from "@testing-library/react";
 import { renderWithTheme } from "@/test-utils/render";
-import { CardMatrix } from "@features/phraseCRUD/components";
 import { CARDS_FIXTURE } from "@/test-utils/fixtures";
 import { Card } from "@/domain/entities";
 import { ERRORS } from "@/constants";
@@ -9,6 +8,7 @@ import {
   emptyCardMatrixSetup,
   errorCardMatrixSetup,
 } from "../../test-utils/setup";
+import CardMatrix from "../CardMatrix";
 
 test("render cards", () => {
   renderWithTheme(

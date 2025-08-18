@@ -25,7 +25,7 @@ export function usePhraseCrud() {
     return () => {
       called = true;
     };
-  }, []); 
+  }, [fetchCards]); 
 
   const cards = useMemo(
     () => (searchString ? findQuotesByText(allCards, searchString) : allCards),

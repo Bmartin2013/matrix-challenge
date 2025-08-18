@@ -14,6 +14,6 @@ describe("findQuotesByText", () => {
 
   it("returns all cards after empty search", () => {
     const res = findQuotesByText(CARDS_FIXTURE, "");
-    expect(res.length).toBe(4);
+    expect(res.length).toBe(5);
   });
 });

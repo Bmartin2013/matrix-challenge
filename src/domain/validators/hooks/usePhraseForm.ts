@@ -33,7 +33,7 @@ export function usePhraseForm(
       setPhrase('');
       setError(null);
     },
-    [phrase, onSubmit, disabled]
+    [phrase, onSubmit, allCards]
   );
 
   const isDisabled = !phrase.trim() || Boolean(error);

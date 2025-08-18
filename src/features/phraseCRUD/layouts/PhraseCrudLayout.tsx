@@ -2,7 +2,6 @@ import { ERRORS } from "@/constants";
 import { normalizeString } from "@/domain/utils/normalize-string.util";
 import { useDebouncedValue } from "@/hooks";
 import {
-  CardMatrix,
   ControlsWrapper,
   SearchBar,
   NewCardForm,
@@ -10,6 +9,7 @@ import {
 import { usePhraseCrud } from "@features/phraseCRUD/hooks/usePhraseCrud";
 import { renderWithStates } from "@features/phraseCRUD/utils/react";
 import { useEffect, useState } from "react";
+import CardMatrix from "../components/CardMatrix";
 
 export const PhraseCrudLayout = () => {
   const {

@@ -1,10 +1,10 @@
 import { memo } from "react";
 import { CardMatrixProps } from "@/features/phraseCRUD/typings";
-import { CardItem } from "./CardItem";
 import { Alert, Box } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
+import CardItem from "./CardItem";
 
-export const CardMatrix = memo(
+const CardMatrix = memo(
   ({ cards, onDelete, deletingId, errorDelete }: CardMatrixProps) => {
     return (
       <Box marginX="2rem">
@@ -37,3 +37,6 @@ export const CardMatrix = memo(
     );
   }
 );
+
+CardMatrix.displayName = 'CardMatrix';
+export default CardMatrix;

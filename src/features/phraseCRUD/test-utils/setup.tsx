@@ -1,11 +1,12 @@
 import { renderWithTheme } from "@/test-utils/render";
-import { CardMatrix, NewCardForm, SearchBar } from "../components";
+import {  NewCardForm, SearchBar } from "../components";
 import { within } from "@testing-library/react";
 import { CARDS_FIXTURE, EMPTY_CARDS } from "@/test-utils/fixtures";
 import { Card } from "@/domain/entities";
 import { ERRORS } from "@/constants";
 import { renderWithStates } from "../utils/react";
 import { ReactElement } from "react";
+import CardMatrix from "../components/CardMatrix";
 
 export const newCardFormSetup = (
   overrides?: Partial<React.ComponentProps<typeof NewCardForm>>

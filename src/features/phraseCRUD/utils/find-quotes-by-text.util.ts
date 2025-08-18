@@ -1,5 +1,5 @@
 import { Card } from "@/domain/entities";
-import { normalizeSearch, normalizeString } from "@/domain/utils/normalize-string.util";
+import { normalizeSearch } from "@/domain/utils/normalize-string.util";
 
 export const findQuotesByText = (cards: Card[], q: string) => {
   const needle = normalizeSearch(q);     

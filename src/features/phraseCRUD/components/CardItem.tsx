@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { CardItemProps } from "@/features/phraseCRUD/typings";
 
-export const CardItem = memo(
+const CardItem = memo(
   ({ card, deletingId, onDelete }: CardItemProps) => {
     const isDeleting = deletingId === card.id;
 
@@ -37,3 +37,6 @@ export const CardItem = memo(
     );
   }
 );
+
+CardItem.displayName = 'CardItem';
+export default CardItem;

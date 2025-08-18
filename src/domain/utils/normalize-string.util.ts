@@ -1,7 +1,7 @@
 export const normalizeString = (s: string) =>
   s
     .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "")
+    .replace(/(n)(\u0303)/g, "ñ")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .replace(/\s+/g, "")
