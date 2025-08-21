@@ -1,5 +1,4 @@
-import { useEffect, useMemo } from "react";
-import { findQuotesByText } from "@/features/phraseCRUD/utils";
+import { useEffect } from "react";
 import { usePhraseCrudStore } from "@/features/phraseCRUD/stores";
 
 export function usePhraseCrud() {
@@ -15,23 +14,23 @@ export function usePhraseCrud() {
     addCard,
     deleteCard,
     errorDelete,
-    deletingId
+    deletingId,
   } = usePhraseCrudStore();
 
- useEffect(() => {
+  useEffect(() => {
     let called = false;
     // doing this to avoid double rendering in dev strict
     if (!called) fetchCards();
     return () => {
       called = true;
     };
-  }, [fetchCards]); 
+  }, [fetchCards]);
 
-  const cards = useMemo(
-    () => (searchString ? findQuotesByText(allCards, searchString) : allCards),
-    [searchString, allCards]
-  );
+  useEffect(() => {
+    fetchCards(searchString);
+  }, [searchString, fetchCards]);
 
+  const cards = allCards;
 
   return {
     cards,
@@ -44,6 +43,6 @@ export function usePhraseCrud() {
     addCard,
     deleteCard,
     errorDelete,
-    deletingId
+    deletingId,
   };
 }

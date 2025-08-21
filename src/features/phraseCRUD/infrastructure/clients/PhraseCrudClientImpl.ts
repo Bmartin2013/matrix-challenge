@@ -12,8 +12,8 @@ export class PhraseCrudClientImpl implements PhraseCrudClient {
     this.getCards = withLatency(this.getCards.bind(this), 1200);
   }
 
-  async getCards(): Promise<Card[]> {
-    const response: Card[] = await this.service.getCards();
+  async getCards(query?:string): Promise<Card[]> {
+    const response: Card[] = await this.service.getCards(query);
     return response.map(getCardWithDefaults);
   }
 

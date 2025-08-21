@@ -1,5 +1,4 @@
 import { ERRORS } from "@/constants";
-import { normalizeString } from "@/domain/utils/normalize-string.util";
 import { useDebouncedValue } from "@/hooks";
 import {
   ControlsWrapper,
@@ -42,18 +41,11 @@ export const PhraseCrudLayout = () => {
   });
 
   const [rawSearch, setRawSearch] = useState("");
-  const searchString = useDebouncedValue(rawSearch, 300);
+  const debounced = useDebouncedValue(rawSearch, 600);
 
   useEffect(() => {
-    const normalized = normalizeString(searchString);
-    setSearchString(normalized);
-  }, [searchString, setSearchString]);
-
-  useEffect(() => {
-    const normalized = normalizeString(searchString);
-    setSearchString(normalized);
-  }, [searchString, setSearchString]);
-
+    setSearchString(debounced);
+  }, [debounced, setSearchString]);
 
   return (
     <>

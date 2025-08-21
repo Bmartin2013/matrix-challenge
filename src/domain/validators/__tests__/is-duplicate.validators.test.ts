@@ -10,7 +10,7 @@ describe("isDuplicate", () => {
   });
 
   it("consider cards with special chars as different", () => {
-    expect(isDuplicate(CARDS_FIXTURE, "arbol!")).toBe(false); // NOTE: same card with special chars is considered as different
+    expect(isDuplicate(CARDS_FIXTURE, "arbol!")).toBe(false); // NOTE: same card with special chars are considered as different
   });
 
   it("consider cards with ñ as different", () => {

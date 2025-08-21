@@ -5,9 +5,9 @@ const provideCrudPhraseClient = () => {
   return new PhraseCrudClientImpl(service);
 };
 
-export const provideCards = () => {
+export const provideCards = (query?:string) => {
   const client = provideCrudPhraseClient();
-  return client.getCards();
+  return client.getCards(query);
 };
 
 export const provideAddCard = (phrase: string) => {

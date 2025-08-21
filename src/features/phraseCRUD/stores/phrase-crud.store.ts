@@ -23,10 +23,10 @@ export const usePhraseCrudStore = create<PhraseCrudState>((set, get) => ({
 
   setSearchString: (value) => set({ searchString: value }),
 
-  fetchCards: async () => {
+  fetchCards: async (query?:string) => {
     try {
       set({ loadingFetch: true, errorFetch: null });
-      const data = await provideCards();
+      const data = await provideCards(query);
       set({ allCards: data });
     } catch (err) {
       set({ errorFetch: (err as Error).message });

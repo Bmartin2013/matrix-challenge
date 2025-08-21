@@ -1,14 +1,18 @@
 import { PhraseCrudService } from "@/domain/interfaces";
 import { Card } from "@/domain/entities";
 import { STORAGE_KEY } from "@features/phraseCRUD/constants/storage";
-
+import { findQuotesByText } from "../../utils";
 
 export class PhraseCrudServiceImpl implements PhraseCrudService {
   constructor() {}
 
-  async getCards(): Promise<Card[]> {
+  async getCards(query?: string): Promise<Card[]> {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const all = raw ? JSON.parse(raw) : [];
+
+    if (!query || !query.trim()) return all;
+
+    return findQuotesByText(all, query);
   }
 
   // so far we're returning all cards for add/delete because we're using local storage
@@ -22,7 +26,7 @@ export class PhraseCrudServiceImpl implements PhraseCrudService {
 
   async deleteCard(id: string): Promise<Card[]> {
     const curr = await this.getCards();
-    const next = curr.filter(c => c.id !== id);
+    const next = curr.filter((c) => c.id !== id);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     return next;
   }

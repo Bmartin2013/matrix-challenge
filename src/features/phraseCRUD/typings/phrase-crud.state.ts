@@ -10,7 +10,7 @@ export interface PhraseCrudState {
   deletingId: string | null;
   errorDelete: string | null;
   setSearchString: (value: string) => void;
-  fetchCards: () => Promise<void>;
+  fetchCards: (query?:string) => Promise<void>;
   addCard: (phrase: string) => Promise<void>;
   deleteCard: (id: string) => Promise<void>;
 }

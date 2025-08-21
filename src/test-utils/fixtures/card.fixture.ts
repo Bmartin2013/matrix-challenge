@@ -1,4 +1,5 @@
 import { Card } from "@/domain/entities/Card";
+import { FIXED_NOW } from "./constants/dates";
 
 export const CARDS_FIXTURE: Card[] = [
   { id: "1", phrase: "Árbol", createdAt: 0 },
@@ -9,3 +10,8 @@ export const CARDS_FIXTURE: Card[] = [
 ];
 
 export const EMPTY_CARDS: Card[] = [];
+
+export const PARTIAL_CARDS: Partial<Card>[] = [
+  { id: "1", phrase: "Hola" },
+  { id: "2", phrase: "Mundo", createdAt: FIXED_NOW - 1 },
+];
